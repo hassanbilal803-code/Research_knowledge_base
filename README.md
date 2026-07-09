@@ -1,47 +1,463 @@
-# 📚 Research Knowledge Base (RAG Pipeline)
+# 📚 Research Knowledge Base (Enterprise RAG Pipeline)
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![ChromaDB](https://img.shields.io/badge/ChromaDB-FF4F00?style=for-the-badge&logo=database&logoColor=white)
+An enterprise-grade **Retrieval-Augmented Generation (RAG)** application designed to query, analyze, and extract accurate insights from academic research papers.
 
-An enterprise-grade Retrieval-Augmented Generation (RAG) architecture engineered to query, analyze, and extract precise insights from dense academic research papers. This full-stack application pairs a dynamic React frontend with a high-performance FastAPI backend to deliver highly accurate, context-aware answers while strictly preventing AI hallucinations.
-
-## 🧠 Core Concepts & System Architecture
-
-This project demonstrates the advanced implementation of several critical AI and backend systems engineering concepts:
-
-*   **Retrieval-Augmented Generation (RAG):** Bypasses the knowledge cutoff of standard Large Language Models (LLMs) by injecting dynamically retrieved, highly relevant document context directly into the AI's prompt space prior to generation.
-*   **Semantic Vector Search:** Utilizes ChromaDB to convert text chunks into high-dimensional embeddings. This allows the system to retrieve information based on underlying mathematical meaning and context, rather than relying on rigid keyword matching.
-*   **Strict Hallucination Guardrails:** Built-in fallback interception prevents the AI from guessing or fabricating information. If the vector database returns irrelevant chunks, the LLM is explicitly instructed to refuse to answer, and the UI dynamically hides the citation tray.
-*   **Transparent Sourcing:** Every successful AI response is paired with a specific document citation and page number, ensuring all extracted data is traceable and verifiable.
-*   **Secure Secrets Management:** Implements robust environment variable isolation (`.env` vs `.env.example`) to ensure API keys remain strictly local, protecting against accidental commits and automated GitHub secret scanning.
-
-## 🛠️ Tech Stack
-
-*   **Backend Interface:** Python, FastAPI, Uvicorn
-*   **Client / Frontend:** ReactJS
-*   **Vector Database:** ChromaDB (Local SQLite implementation)
-*   **LLM Inference Engine:** Groq API (Optimized for ultra-low latency generation)
+The application combines a **React** frontend with a **FastAPI** backend, **ChromaDB** vector database, and **Groq LLM inference** to deliver fast, context-aware responses while minimizing AI hallucinations through strict retrieval guardrails.
 
 ---
 
-## 📋 Prerequisites
+# ✨ Features
 
-Before setting up the project, ensure your local machine has the following installed:
-*   **Python 3.9+** (For the backend server)
-*   **Node.js & npm** (For the frontend client)
-*   **Git** (For version control and cloning)
-*   A valid **Groq API Key** (For LLM inference)
+- 📄 Upload and analyze academic research papers (PDF)
+- 🔍 Semantic search powered by vector embeddings
+- 🤖 Retrieval-Augmented Generation (RAG)
+- ⚡ Ultra-fast LLM inference using Groq
+- 📚 Source citations with page numbers
+- 🛡️ Built-in hallucination prevention
+- 🔒 Secure API key management using environment variables
+- 🎨 Modern React + Tailwind CSS interface
+- 💾 Persistent ChromaDB vector storage
 
 ---
 
-## ⚙️ Local Setup & Installation
+# 🏗️ System Architecture
 
-Follow these step-by-step instructions to get the development environment running on your local machine.
+```text
+               PDF Upload
+                    │
+                    ▼
+          PDF Text Extraction
+                    │
+                    ▼
+      Intelligent Text Chunking
+                    │
+                    ▼
+          Embedding Generation
+                    │
+                    ▼
+             ChromaDB Storage
+                    │
+             User Question
+                    │
+                    ▼
+        Semantic Vector Search
+                    │
+                    ▼
+      Relevant Context Retrieved
+                    │
+                    ▼
+      Groq Large Language Model
+                    │
+                    ▼
+      Grounded Answer + Citation
+```
 
-### 1. Clone the Repository
-Begin by pulling the codebase to your local machine and navigating into the project folder.
+---
+
+# 🧠 Core Concepts
+
+## Retrieval-Augmented Generation (RAG)
+
+Instead of relying solely on an LLM's pretrained knowledge, the system retrieves relevant document chunks and injects them into the model's prompt before generating an answer.
+
+This enables:
+
+- More accurate responses
+- Domain-specific knowledge
+- Reduced hallucinations
+- Better explainability
+
+---
+
+## Semantic Vector Search
+
+The application uses **ChromaDB** to store embeddings of document chunks.
+
+Unlike traditional keyword search, semantic search understands the **meaning** behind a query and retrieves the most contextually relevant information.
+
+---
+
+## Hallucination Prevention
+
+The pipeline includes strict safeguards to prevent fabricated answers.
+
+If retrieved chunks fail to meet the required relevance threshold, the application refuses to answer and returns:
+
+> **"I cannot find sufficient evidence in the document to answer your query safely."**
+
+This ensures every response remains grounded in the uploaded document.
+
+---
+
+## Transparent Citations
+
+Every generated answer includes:
+
+- Source document
+- Referenced text chunk
+- Page number
+
+This allows users to verify every generated response.
+
+---
+
+# 🚀 Tech Stack
+
+## Backend
+
+- Python 3.9+
+- FastAPI
+- Uvicorn
+
+## Frontend
+
+- React
+- Vite
+- Tailwind CSS
+
+## AI & Vector Database
+
+- ChromaDB
+- Groq API
+- Embedding Model
+
+---
+
+# 📋 Prerequisites
+
+Install the following before running the project:
+
+- Python 3.9+
+- Node.js v18+
+- npm
+- Git
+- Groq API Key
+
+---
+
+# ⚙️ Installation
+
+## 1. Clone the Repository
+
 ```bash
-git clone [https://github.com/hassanbilal803-code/Research_knowledge_base.git](https://github.com/hassanbilal803-code/Research_knowledge_base.git)
+git clone https://github.com/hassanbilal803-code/Research_knowledge_base.git
+
 cd Research_knowledge_base
+```
+
+---
+
+## 2. Backend Setup
+
+Navigate to the backend folder.
+
+```bash
+cd backend
+```
+
+Create a virtual environment.
+
+```bash
+python -m venv venv
+```
+
+Activate the environment.
+
+### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+### macOS / Linux
+
+```bash
+source venv/bin/activate
+```
+
+Install dependencies.
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 3. Configure Environment Variables
+
+Create a `.env` file inside the **backend** directory.
+
+```env
+GROQ_API_KEY=gsk_your_actual_api_key_here
+```
+
+> **Important:** Never commit your `.env` file to GitHub.
+
+---
+
+## 4. Run the Backend
+
+```bash
+uvicorn main:app --reload --port 8000
+```
+
+Backend URL:
+
+```
+http://localhost:8000
+```
+
+---
+
+## 5. Run the Frontend
+
+Open a new terminal.
+
+```bash
+cd frontend
+```
+
+Install dependencies.
+
+```bash
+npm install
+```
+
+Start the development server.
+
+```bash
+npm run dev
+```
+
+Frontend URL:
+
+```
+http://localhost:5173
+```
+
+---
+
+# 📂 Project Structure
+
+```text
+Research_knowledge_base/
+│
+├── backend/
+│   ├── main.py
+│   ├── requirements.txt
+│   ├── .env
+│   ├── .env.example
+│   └── database/
+│
+└── frontend/
+    ├── src/
+    │   ├── components/
+    │   ├── App.jsx
+    │   ├── main.jsx
+    │   └── index.css
+    │
+    ├── package.json
+    ├── vite.config.js
+    └── tailwind.config.js
+```
+
+---
+
+# 💡 How It Works
+
+### Step 1
+
+Upload an academic research paper in PDF format.
+
+↓
+
+### Step 2
+
+The backend:
+
+- Extracts text
+- Splits the document into chunks
+- Generates embeddings
+- Stores vectors in ChromaDB
+
+↓
+
+### Step 3
+
+Ask questions about the paper.
+
+Example:
+
+> *What methodology was used to calculate the experimental error margins?*
+
+↓
+
+### Step 4
+
+The application retrieves the most relevant chunks.
+
+↓
+
+### Step 5
+
+The retrieved context is passed to the LLM.
+
+↓
+
+### Step 6
+
+The model generates a grounded answer with citations.
+
+---
+
+# 🛡️ Production Guardrails
+
+## Intelligent Chunking
+
+Uses recursive character splitting with overlap to preserve context across chunk boundaries.
+
+Benefits:
+
+- Better retrieval
+- Higher answer quality
+- Reduced context fragmentation
+
+---
+
+## Anti-Hallucination Pipeline
+
+If relevant context cannot be found, the model is **not allowed** to guess.
+
+Instead, it returns a safe fallback response.
+
+This prevents fabricated information from being generated.
+
+---
+
+## Session Isolation
+
+Every uploaded document is tagged with unique metadata.
+
+This ensures:
+
+- No cross-document contamination
+- Session-specific retrieval
+- Clean vector searches
+
+---
+
+# 📷 Workflow
+
+```text
+PDF
+ │
+ ▼
+Text Extraction
+ │
+ ▼
+Chunking
+ │
+ ▼
+Embeddings
+ │
+ ▼
+ChromaDB
+ │
+ ▼
+Semantic Search
+ │
+ ▼
+Retrieved Context
+ │
+ ▼
+Groq LLM
+ │
+ ▼
+Grounded Answer
+ │
+ ▼
+Citation + Page Number
+```
+
+---
+
+# 🛠️ Troubleshooting
+
+## ModuleNotFoundError
+
+Ensure the virtual environment is activated before installing dependencies.
+
+```bash
+source venv/bin/activate
+```
+
+or
+
+```bash
+venv\Scripts\activate
+```
+
+---
+
+## HTTP 401 Unauthorized
+
+Verify your `.env` file contains a valid Groq API key.
+
+```env
+GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxx
+```
+
+---
+
+## SQLite Version Conflict
+
+Some systems use an older SQLite version.
+
+Install:
+
+```bash
+pip install pysqlite3-binary
+```
+
+Then apply the SQLite override in `main.py` if required.
+
+---
+
+# 🔮 Future Improvements
+
+- Multi-document querying
+- PDF highlighting
+- OCR support
+- Hybrid search (Keyword + Vector)
+- User authentication
+- Conversation memory
+- Docker deployment
+- Kubernetes support
+- Cloud vector database integration
+- Streaming LLM responses
+- Admin dashboard
+- Export chat history
+
+---
+
+# 👨‍💻 Author
+
+**Hassan Bilal**
+
+GitHub:
+
+https://github.com/hassanbilal803-code
+
+---
+
+
+---
+
+# 📄 License
+
+This project is intended for educational, research, and portfolio purposes.
+
+Feel free to use and modify the code with proper attribution.
+
+
+
